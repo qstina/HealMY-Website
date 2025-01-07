@@ -6,3 +6,6 @@ in command prompt:
 4. npm install react-router-dom
 5. npm install -D tailwindcss postcss autoprefixer
 6. npx tailwindcss init -p
+
+if want to code in VSC/ text editor:
+7. run code .
