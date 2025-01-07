@@ -9,3 +9,6 @@ in command prompt:
 
 if want to code in VSC/ text editor:
 7. run code .
+
+to run in browser, in project terminal:
+1. npm run dev
