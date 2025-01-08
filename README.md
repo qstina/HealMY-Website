@@ -6,9 +6,10 @@ in command prompt:
 4. npm install react-router-dom
 5. npm install -D tailwindcss postcss autoprefixer
 6. npx tailwindcss init -p
+7. npm install react-icons/fa
 
 if want to code in VSC/ text editor:
-7. run code .
+1. run code .
 
 to run in browser, in project terminal:
 1. npm run dev
