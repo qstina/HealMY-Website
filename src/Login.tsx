@@ -21,7 +21,7 @@ const Login = () => {
         signInWithPopup(auth, new GoogleAuthProvider())
             .then(response => {
                 console.log(response.user.uid);
-                navigate('/');
+                navigate('/home');
             })
             .catch(error => {
                 console.log(error);
@@ -38,7 +38,7 @@ const Login = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then(response => {
                 console.log(response.user.uid);
-                navigate('/');
+                navigate('/home');
             })
             .catch(error => {
                 console.log(error);
@@ -47,20 +47,16 @@ const Login = () => {
     }
 
     return (
-        <div className="w-full h-screen flex">
-            {/* Left half of the screen - background styling */}
-            <div className="w-1/2 h-full flex flex-col bg-[#282c34] items-center justify-center">
-            </div> 
-
-            {/* Right half of the screen - login form */}
-            <div className="w-1/2 h-full bg-[#1a1a1a] flex flex-col p-20 justify-center">
-                <div className="w-full flex flex-col max-w-[450px] mx-auto">
-                    {/* Header section with title and welcome message */}
-                    <div className="w-full flex flex-col mb-10 text-white">
-                        <h3 className="text-4xl font-bold mb-2">Login</h3>
-                        <p className="text-lg mb-4">Welcome Back!</p>
-                    </div>
-
+        <div className="w-full h-screen bg-cover bg-center" style={{ backgroundImage: "url('/src/assets/img/main_bg.PNG')" }}>
+            <div className="w-full flex flex-col items-center justify-center h-full">
+                {/* Header section outside the form */}
+                <div className="text-white text-center mb-10 font-serif">
+                    <h3 className="text-4xl font-bold mb-2">Login</h3>
+                    <p className="text-lg">Welcome Back!</p>
+                </div>
+    
+                {/* Form fields without any box */}
+                <div className="w-full max-w-[400px] flex flex-col items-center font-sans">
                     {/* Input fields for email and password */}
                     <div className="w-full flex flex-col mb-6">
                         <input 
@@ -76,7 +72,7 @@ const Login = () => {
                            value={password}
                            onChange={(e) => setPassword(e.target.value)} />
                     </div>
-
+    
                     {/* Buttons to log in with email and password */}
                     <div className="w-full flex flex-col mb-4">
                         <button
@@ -86,16 +82,16 @@ const Login = () => {
                             Log In with Email and Password
                         </button>
                     </div>
-
+    
                     {/* Display error message if there is one */}
                     {error && <div className="text-red-500 mb-4">{error}</div>}
-
+    
                     {/* Divider with OR text */}
                     <div className="w-full flex items-center justify-center relative py-4">
-                        <div className="w-full h-[1px] bg-gray-500"></div>
-                        <p className="text-lg absolute text-gray-500 bg-[#1a1a1a] px-2">OR</p>
+                        <div className="w-full h-[1px] bg-transparent"></div>
+                        <p className="text-lg absolute text-gray-500 bg-transparent px-2">OR</p>
                     </div>
-
+    
                     {/* Button to log in with Google */}
                     <div className="w-full flex flex-col mb-4">
                         <button
@@ -105,16 +101,19 @@ const Login = () => {
                             Log In with Google
                         </button>
                     </div>
-
+    
                     {/* Link to sign up page */}
                     <div className="w-full flex items-center justify-center mt-10">
-                        <p className="text-sm font-normal text-gray-400">Don't have an account? <span className="font-semibold"></span></p>
+                        <p className="text-sm font-normal text-gray-400">
+                            Don't have an account? 
+                           <a href="/signup" className="font-semibold text-blue-500 hover:underline"> Sign Up</a>
+                        </p>
                     </div>
-
                 </div>
-            </div>       
+            </div>
         </div>
-    );
+    );      
+    
 }
 
 export default Login;
