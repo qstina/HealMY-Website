@@ -9,6 +9,7 @@ in command prompt:
 7. npm install react-icons/fa
 8. npm install sentiment
 9. npm install --save-dev @types/sentiment
+10. npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons @fortawesome/fontawesome-svg-core
 
 if want to code in VSC/ text editor:
 1. run code .
