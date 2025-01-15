@@ -7,6 +7,8 @@ in command prompt:
 5. npm install -D tailwindcss postcss autoprefixer
 6. npx tailwindcss init -p
 7. npm install react-icons/fa
+8. npm install sentiment
+9. npm install --save-dev @types/sentiment
 
 if want to code in VSC/ text editor:
 1. run code .
