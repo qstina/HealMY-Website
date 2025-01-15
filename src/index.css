@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Roboto&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -19,17 +21,25 @@
   animation: gradientFlow 15s ease infinite;
 }
 
-.scrolling-posts {
-  display: flex;
-  flex-direction: column;
-  animation: scroll 10s linear infinite;
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0;
+  }
+  10%, 90% {
+    opacity: 1;
+  }
 }
 
-@keyframes scroll {
-  0% {
-      transform: translateY(0%);
-  }
-  100% {
-      transform: translateY(-50%); /* Adjust based on the height of your posts */
-  }
+.fade-loop {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
 }
+
+.fade-loop > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+

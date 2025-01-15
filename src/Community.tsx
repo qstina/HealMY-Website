@@ -3,12 +3,14 @@ import { getAuth } from "firebase/auth";
 import { getFirestore, collection, addDoc, getDocs, doc, getDoc, Timestamp, updateDoc } from "firebase/firestore"; 
 import { useNavigate } from "react-router-dom";
 import Sentiment from "sentiment";
+import Navbar from "./Navbar"; // Importing Navbar
 
 const Community = () => {
     const [content, setContent] = useState<string>('');
     const [nickname, setNickname] = useState<string>('');
     const [username, setUsername] = useState<string>('');
     const [posts, setPosts] = useState<any[]>([]);
+    const [isNavbarVisible, setIsNavbarVisible] = useState(true);
     const auth = getAuth();
     const db = getFirestore();
     const navigate = useNavigate();
@@ -47,13 +49,24 @@ const Community = () => {
         fetchPosts();
     }, [auth, db, navigate]);
 
+    useEffect(() => {
+        let lastScrollTop = 0;
+        const handleScroll = () => {
+            const scrollTop = window.scrollY;
+            setIsNavbarVisible(scrollTop <= lastScrollTop);
+            lastScrollTop = scrollTop;
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
     const handlePostSubmit = async () => {
         if (content.trim() === "") {
             alert("Please write something before submitting!");
             return;
         }
     
-        // Perform sentiment analysis
         const sentiment = new Sentiment();
         const analysis = sentiment.analyze(content);
     
@@ -101,57 +114,63 @@ const Community = () => {
     };
 
     return (
-        <div className="w-full h-screen bg-yellow-100 p-8">
-            <div className="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-                <h2 className="text-2xl font-serif mb-4 text-center">
-                    What Made Your Day Today? 🌟
-                </h2>
+        <div className="w-full min-h-screen bg-[#ECDFCC]">
+            {isNavbarVisible && <Navbar />}
 
-                {/* Post input */}
-                <textarea
-                    className="w-full h-32 p-4 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                    placeholder="Share a heartwarming or funny moment!"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                />
+            {/* Content Section */}
+            <div className="w-full pt-20 px-8">
+                <div className="max-w-xl mx-auto bg-transparent p-6 rounded-lg">
+                    <h2 className="text-3xl font-serif mb-4 text-center">
+                        What Made Your Day Today? 🌟
+                    </h2>
 
-                {/* Submit button */}
-                <button
-                    onClick={handlePostSubmit}
-                    className="w-full py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
-                >
-                    Post
-                </button>
-            </div>
+                    {/* Post input */}
+                    <textarea
+                        className="w-full h-32 p-4 mb-4 bg-white border-2 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                        placeholder="Share a heartwarming or funny moment!"
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                    />
 
-            {/* Posts Section */}
-            <div className="max-w-xl mx-auto mt-6 bg-white p-6 rounded-lg shadow-lg">
-                <h3 className="text-xl font-serif mb-4 text-center">Community Posts</h3>
+                    {/* Submit button */}
+                    <button
+                        onClick={handlePostSubmit}
+                        className="w-full py-2 border-2 bg-black border-black text-white rounded-lg hover:bg-yellow-600 transition"
+                    >
+                        Post
+                    </button>
+                </div>
 
-                {posts.length === 0 ? (
-                    <p>No posts yet! Be the first to share something uplifting! 🌻</p>
-                ) : (
-                    <div>
-                        {posts.map((post) => (
-                            <div key={post.id} className="border-b pb-4 mb-4">
-                                <p className="font-semibold text-blue-600">
-                                    {post.author}
-                                </p>
-                                <p>{post.content}</p>
+                {/* Posts Section */}
+                <div className="max-w-xl mx-auto mt-4 bg-transparent p-6 rounded-lg">
+                    <h3 className="text-xl font-serif mb-4 text-center">Community Posts</h3>
 
-                                {/* Love Button */}
-                                <div className="mt-4">
-                                    <button
-                                        onClick={() => handleLoveClick(post.id, post.loveCount)}
-                                        className="text-red-500 hover:text-red-700"
-                                    >
-                                        ❤️ {post.loveCount}
-                                    </button>
+                    {posts.length === 0 ? (
+                        <p className="text-black text-center">No posts yet! Be the first to share something uplifting! 🌻</p>
+                    ) : (
+                        <div>
+                            {posts.map((post) => (
+                                <div key={post.id} className="bg-white border-2 border-black rounded-lg p-6 pb-4 mb-4">
+                                    <p className="font-serif text-black">
+                                        {post.author}
+                                    </p>
+                                    <p>{post.content}</p>
+                                    <p className="text-xs text-gray-500 mt-1">{new Date(post.timestamp.toDate()).toLocaleString()}</p>
+
+                                    {/* Love Button */}
+                                    <div className="mt-4">
+                                        <button
+                                            onClick={() => handleLoveClick(post.id, post.loveCount)}
+                                            className="text-red-500 hover:text-red-700"
+                                        >
+                                            ❤️ {post.loveCount}
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
+                            ))}
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

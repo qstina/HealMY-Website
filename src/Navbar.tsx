@@ -7,11 +7,11 @@ const Navbar = () => {
     const isActive = (path: string) => location.pathname === path;
 
     return (
-        <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-white py-3 px-8 rounded-full flex justify-between items-center w-[90%] max-w-4xl z-50">
+        <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 py-3 px-8 flex justify-between items-center w-[90%] max-w-4xl z-50 font-serif">
             {/* Logo */}
             <Link
                 to="/home"
-                className="text-2xl font-serif font-bold text-gray-800 hover:text-gray-600"
+                className="text-2xl font-serif text-black hover:text-gray-600"
             >
                 HealMY
             </Link>
@@ -19,49 +19,41 @@ const Navbar = () => {
             {/* Navigation Links */}
             <div className="flex space-x-6">
                 <Link
-                    to="/home"
-                    className={`text-lg ${
-                        isActive("/home") ? "text-gray-800 font-bold" : "text-gray-500"
-                    } hover:text-gray-800`}
-                >
-                    Home
-                </Link>
-                <Link
                     to="/moodtracker"
                     className={`text-lg ${
-                        isActive("/moodtracker") ? "text-gray-800 font-bold" : "text-gray-500"
-                    } hover:text-gray-800`}
+                        isActive("/moodtracker") ? "font-bold" : ""
+                    } text-black hover:text-gray-600`}
                 >
                     Mood Tracker
                 </Link>
                 <Link
                     to="/journal"
                     className={`text-lg ${
-                        isActive("/journal") ? "text-gray-800 font-bold" : "text-gray-500"
-                    } hover:text-gray-800`}
+                        isActive("/journal") ? "font-bold" : ""
+                    } text-black hover:text-gray-600`}
                 >
                     Journal
                 </Link>
                 <Link
                     to="/community"
                     className={`text-lg ${
-                        isActive("/community") ? "text-gray-800 font-bold" : "text-gray-500"
-                    } hover:text-gray-800`}
+                        isActive("/community") ? "font-bold" : ""
+                    } text-black hover:text-gray-600`}
                 >
                     Community
                 </Link>
                 <Link
                     to="/resources"
                     className={`text-lg ${
-                        isActive("/resources") ? "text-gray-800 font-bold" : "text-gray-500"
-                    } hover:text-gray-800`}
+                        isActive("/resources") ? "font-bold" : ""
+                    } text-black hover:text-gray-600`}
                 >
                     Resources
                 </Link>
             </div>
 
             {/* Profile Icon */}
-            <Link to="/profile" className="text-2xl text-gray-500 hover:text-gray-800">
+            <Link to="/profile" className="text-2xl text-black hover:text-gray-600">
                 <CgProfile />
             </Link>
         </nav>
